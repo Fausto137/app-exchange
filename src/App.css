@@ -1,7 +1,4 @@
-.App {
-  text-align: center;
-}
-
+/*
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -35,27 +32,40 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+.App {
+  text-align: center;
+  
 }
 
 .select-title {
-  padding: 1%;
+  padding-top: 3%;
+  padding-bottom: 1%;
+  font-size: 20px;
 }
 
 .input-styles {
   border-style: hidden;
-  box-shadow: 0 0 3px;
+  box-shadow: 0 0 4px;
   border-radius: 4px;
+  width: 40%;
+  padding: 1% 1%;
+  font-size: 25px;
+  color: rgba(123,123,123,255);
 }
 
 .button-style {
   border-style: hidden;
-  margin-top: 2%;
-  background-color: orange;
-  border-radius: 30px;
-  font-size: 157%;
+  margin-top: 7%;
+  background-color: rgba(254,113,64,255);
+  border-radius: 35px;
+  font-size: 140%;
   padding-top: 1%;
   padding-bottom: 1%;
   padding-right: 7%;
   padding-left: 7%;
   box-shadow: 0 0 3px;
+  color: white;
+  width: 40%;
 }

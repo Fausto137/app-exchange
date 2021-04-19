@@ -12,9 +12,9 @@ const App = () => {
 		// setDatePicker({ selectedDay: day });
 	}
 
-	const styleDate = {
-		"border-radius": "7px"
-	}
+	// const styleDate = {
+	// 	"border-radius": "7px"
+	// }
 
 	return (
 		<div className="App">
@@ -22,8 +22,8 @@ const App = () => {
 			<h1>Histórico de cotizaciones</h1>
 			<form>
 				<div className="form-group">
-					<div className="row select-title">
-						<label htmlFor="money">Example select</label>
+					<div className="row select-title" >
+						<label htmlFor="money">Selecciona la moneda de referencia</label>
 					</div>
 					<div className="row">
 						<select className="form-control input-styles" id="money">
@@ -36,7 +36,7 @@ const App = () => {
 					</div>
 					<div className="row">
 						<div className="row select-title">
-							<label htmlFor="money">Example select</label>
+							<label htmlFor="money">Ingrese la fecha de cotización</label>
 						</div>
 						<input className="input-styles" type="date" onChange={handleChange} />
 					</div>

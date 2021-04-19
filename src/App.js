@@ -4,48 +4,28 @@ import './App.css';
 import Table from './Table'
 
 const App = () => {
+	
+	const access_key = '6cee9f5c5f94eb3548f6f482781c67e7';
 	const [datePickerState, setDatePickerState] = useState(new Date());
-	const [rates, setRates] = useState([]);
-
-	const url = 'http://api.exchangeratesapi.io/v1/latest?access_key=60418b5b795136e35091e4f5366ba8fe';
-	let objectRates = {
-		"AUD": 1.566015,
-		"CAD": 1.560132,
-		"CHF": 1.154727,
-		"CNY": 7.827874,
-		"GBP": 0.882047,
-		"JPY": 132.360679,
-		"USD": 1.23396,
-		"PPP": 1.23396,
-		"AAA": 1.23396,
-		"CCC": 1.23396,
-		"HHH": 1.23396,
-		"OKO": 1.23396,
-		"SSA": 1.23396,
-		"XXX": 1.23396,
-		"EPA": 132.360679
-	}
-
-	let arrayRates = Object.entries(objectRates).map((e) => ({ 'flag' : `./${e[0]}.png`, 'country' : e[0], 'value' : e[1]  }));
-
-	const handleChange = e => {
-		console.log(e.toISOString().slice(0, 10));
-		// console.log(day.toISOString().slice(0, 10));
-		// setDatePickerState({ selectedDay: e.target.value.toISOString().slice(0, 10) });
-	}
-
-	const fetchRates = async () => {
-		const apiCall = await fetch(url);
-		const responseRates = await apiCall.json();
-		setRates({ ...responseRates.rates });
-	}
-
+	const [moneyState, setMoneyState] = useState('USD');
+	const [rates, setRates] = useState([]);	
+	
 	useEffect(() => {
-		// fetchRates();
-		setRates([
-			...arrayRates
-		]);
+		let dateString = datePickerState.toISOString().slice(0, 10);
+		fetchRates('http://api.exchangeratesapi.io/v1/' + dateString + '?access_key='+ access_key);
 	}, []);
+
+	const fetchRates = async (url, money) => {
+		const apiCall = await fetch(url);
+		const responseRates = await apiCall.json();		
+		let arrayRates = Object.entries(responseRates.rates).map((e) => ({ 'flag' : `./${e[0]}.png`, 'country' : e[0], 'value' : e[1] * (1 / Number(responseRates.rates[moneyState]) ) }))
+		setRates([ ...arrayRates ]);
+	}
+
+	const btnSubmit = () => {
+		let dateString = datePickerState.toISOString().slice(0, 10);
+		fetchRates('http://api.exchangeratesapi.io/v1/' + dateString + '?access_key='+ access_key);
+	}
 
 	return (
 		<div className="App d-flex align-content-center flex-wrap">
@@ -56,22 +36,31 @@ const App = () => {
 						<div className="select-title">
 							<label htmlFor="money">Selecciona la moneda de referencia</label>
 						</div>
-						<select className="form-control input-styles" id="money">
-							<option value="">Moneda</option>							
-							{rates.map((r, i) => <option key={i} value="{r.value}">{r.country}</option>)}
+						<select 
+							className="form-control input-styles" 
+							id="money" onChange={e => setMoneyState(e.target.value)}>
+							<option value={moneyState}>{moneyState}</option>
+							{rates.map((r, i) => <option key={i} value={r.country}>{r.country}</option>)}
 						</select>
 					</div>
 					<div className="row form-group">
 						<div className="select-title" >
 							<label htmlFor="money">Ingrese la fecha de cotización</label>	
 						</div>
-						<DatePicker className="form-control input-styles" name="date" dateFormat="dd MM yyyy" onChange={handleChange} placeholderText="DD / MM / YYYY" /> 
+						<DatePicker 
+							className="form-control input-styles" 
+							name="date" 
+							dateFormat="dd MM yyyy" 
+							selected={datePickerState}
+							onChange={date => setDatePickerState(date)}
+							placeholderText="DD / MM / YYYY"
+						/> 
 					</div>	
 					<div className="row">
-						<button className="button-style" type="submit">Buscar cotizaciones</button>
+						<input type="button" className="button-style" onClick={btnSubmit} value="Buscar cotizaciones" />
 					</div>					
 				</form>				
-				<Table arrayRates={arrayRates} />
+				<Table arrayRates={rates} />
 			</div>
 		</div>
 	);

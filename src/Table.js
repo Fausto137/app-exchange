@@ -5,26 +5,23 @@ const Table = (prop) => {
     const [counter, setCounter] = useState(4);
     
     useEffect(() => {
-        console.log('ACA!!!!');
         for(let i=4; i < prop.arrayRates.length; i++){
+            console.log('ACA');
             let element = document.getElementById(i);
             if(element != null){
                 element.style.display = 'none';
-            }            
+            }
         }
-	}, []);
+	}, [prop.arrayRates]);
 
     const addRows = () => {
-        console.log('ACA');
         for(let i = counter; i < counter + 4; i++){
-            console.log('entro');
             let element = document.getElementById(i);
             if(element != null){
                 element.style.display = '';
             }            
         }
-        setCounter(counter + 4)
-        console.log(counter);
+        setCounter(counter + 4);
     }
 
     return (

@@ -1,51 +1,78 @@
-import { useState } from 'react';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
-import 'react-day-picker/lib/style.css';
+import { useState, useEffect } from 'react';
+import DatePicker from "react-datepicker";
 import './App.css';
+import Table from './Table'
 
 const App = () => {
-	const [datePicker, setDatePicker] = useState(new Date());
+	const [datePickerState, setDatePickerState] = useState(new Date());
+	const [rates, setRates] = useState([]);
 
-	const handleChange = e => {
-		console.log(e.target.value);
-		// console.log(day.toISOString().slice(0, 10));
-		// setDatePicker({ selectedDay: day });
+	const url = 'http://api.exchangeratesapi.io/v1/latest?access_key=60418b5b795136e35091e4f5366ba8fe';
+	let objectRates = {
+		"AUD": 1.566015,
+		"CAD": 1.560132,
+		"CHF": 1.154727,
+		"CNY": 7.827874,
+		"GBP": 0.882047,
+		"JPY": 132.360679,
+		"USD": 1.23396,
+		"PPP": 1.23396,
+		"AAA": 1.23396,
+		"CCC": 1.23396,
+		"HHH": 1.23396,
+		"OKO": 1.23396,
+		"SSA": 1.23396,
+		"XXX": 1.23396,
+		"EPA": 132.360679
 	}
 
-	// const styleDate = {
-	// 	"border-radius": "7px"
-	// }
+	let arrayRates = Object.entries(objectRates).map((e) => ({ 'flag' : `./${e[0]}.png`, 'country' : e[0], 'value' : e[1]  }));
+
+	const handleChange = e => {
+		console.log(e.toISOString().slice(0, 10));
+		// console.log(day.toISOString().slice(0, 10));
+		// setDatePickerState({ selectedDay: e.target.value.toISOString().slice(0, 10) });
+	}
+
+	const fetchRates = async () => {
+		const apiCall = await fetch(url);
+		const responseRates = await apiCall.json();
+		setRates({ ...responseRates.rates });
+	}
+
+	useEffect(() => {
+		// fetchRates();
+		setRates([
+			...arrayRates
+		]);
+	}, []);
 
 	return (
-		<div className="App">
-
-			<h1>Histórico de cotizaciones</h1>
-			<form>
-				<div className="form-group">
-					<div className="row select-title" >
-						<label htmlFor="money">Selecciona la moneda de referencia</label>
-					</div>
-					<div className="row">
+		<div className="App d-flex align-content-center flex-wrap">
+			<div className="container">
+				<h1>Histórico de cotizaciones</h1>
+				<form>
+					<div className="row form-group">									
+						<div className="select-title">
+							<label htmlFor="money">Selecciona la moneda de referencia</label>
+						</div>
 						<select className="form-control input-styles" id="money">
-							<option value="">Moneda</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
+							<option value="">Moneda</option>							
+							{rates.map((r, i) => <option key={i} value="{r.value}">{r.country}</option>)}
 						</select>
 					</div>
-					<div className="row">
-						<div className="row select-title">
-							<label htmlFor="money">Ingrese la fecha de cotización</label>
+					<div className="row form-group">
+						<div className="select-title" >
+							<label htmlFor="money">Ingrese la fecha de cotización</label>	
 						</div>
-						<input className="input-styles" type="date" onChange={handleChange} />
-					</div>
+						<DatePicker className="form-control input-styles" name="date" dateFormat="dd MM yyyy" onChange={handleChange} placeholderText="DD / MM / YYYY" /> 
+					</div>	
 					<div className="row">
 						<button className="button-style" type="submit">Buscar cotizaciones</button>
-					</div>
-				</div>
-			</form>
-
+					</div>					
+				</form>				
+				<Table arrayRates={arrayRates} />
+			</div>
 		</div>
 	);
 }

@@ -33,10 +33,23 @@
     transform: rotate(360deg);
   }
 } */
+@import "~react-datepicker/dist/react-datepicker.css";
+
+img {
+  max-width: 35px;
+}
+
+.table-styles {
+  margin-top: 4%;
+  width: 380px;
+  font-size: 140%;
+  text-align: center;
+}
 
 .App {
-  text-align: center;
-  
+  width: 80%;
+  margin-left: 35%;
+  margin-right: 35%;
 }
 
 .select-title {
@@ -47,17 +60,17 @@
 
 .input-styles {
   border-style: hidden;
-  box-shadow: 0 0 4px;
+  box-shadow: 2px 2px 4px gray;
   border-radius: 4px;
-  width: 40%;
-  padding: 1% 1%;
-  font-size: 25px;
+  width: 380px;
+  padding: 2% 0% 2% 0%;
+  font-size: 18px;
   color: rgba(123,123,123,255);
 }
 
 .button-style {
   border-style: hidden;
-  margin-top: 7%;
+  margin-top: 5%;
   background-color: rgba(254,113,64,255);
   border-radius: 35px;
   font-size: 140%;
@@ -67,5 +80,13 @@
   padding-left: 7%;
   box-shadow: 0 0 3px;
   color: white;
-  width: 40%;
+  width: 380px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+tr {
+  border-bottom: 1px solid rgb(164, 161, 161);
 }

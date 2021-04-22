@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import DatePicker from "react-datepicker";
 import './App.css';
-import Table from './Table'
+import Table from './Table';
+// import CurrencyFlag from 'react-currency-flags';
+
 
 const App = () => {
 	
@@ -13,12 +15,21 @@ const App = () => {
 	useEffect(() => {
 		let dateString = datePickerState.toISOString().slice(0, 10);
 		fetchRates('http://api.exchangeratesapi.io/v1/' + dateString + '?access_key='+ access_key);
-	}, []);
+	}, []);//lo refresco una vez
 
-	const fetchRates = async (url, money) => {
+	// async function fetchRates2(url){
+
+	// }
+	const fetchRates = async (url) => {
 		const apiCall = await fetch(url);
 		const responseRates = await apiCall.json();		
-		let arrayRates = Object.entries(responseRates.rates).map((e) => ({ 'flag' : `./${e[0]}.png`, 'country' : e[0], 'value' : e[1] * (1 / Number(responseRates.rates[moneyState]) ) }))
+		let arrayRates = Object.entries(responseRates.rates).map((element) => (
+			{
+				'flag' : `./${element[0]}.png`, 
+				'currency' : element[0],
+				'value' : element[1] * (1 / Number(responseRates.rates[moneyState]) ) 
+			}
+		))
 		setRates([ ...arrayRates ]);
 	}
 
@@ -32,32 +43,33 @@ const App = () => {
 			<div className="container">
 				<h1>Histórico de cotizaciones</h1>
 				<form>
-					<div className="row form-group">									
-						<div className="select-title">
-							<label htmlFor="money">Selecciona la moneda de referencia</label>
-						</div>
-						<select 
-							className="form-control input-styles" 
-							id="money" onChange={e => setMoneyState(e.target.value)}>
-							<option value={moneyState}>{moneyState}</option>
-							{rates.map((r, i) => <option key={i} value={r.country}>{r.country}</option>)}
-						</select>
+				<div className="row form-group">									
+					<div className="select-title">
+						<label htmlFor="money">Selecciona la moneda de referencia</label>
 					</div>
+					<select 
+						className="form-control input-styles" 
+						id="money" onChange={e => setMoneyState(e.target.value)}>
+						<option value={moneyState}>{moneyState}</option>
+						{rates.map((r, i) => <option key={i} value={r.country}>{r.country}</option>)}
+					</select>
+				</div>
 					<div className="row form-group">
 						<div className="select-title" >
 							<label htmlFor="money">Ingrese la fecha de cotización</label>	
 						</div>
-						<DatePicker 
+						<DatePicker
 							className="form-control input-styles" 
 							name="date" 
 							dateFormat="dd MM yyyy" 
 							selected={datePickerState}
 							onChange={date => setDatePickerState(date)}
 							placeholderText="DD / MM / YYYY"
-						/> 
+							maxDate={new Date()}
+						/>
 					</div>	
-					<div className="row">
-						<input type="button" className="button-style" onClick={btnSubmit} value="Buscar cotizaciones" />
+					<div className="row"><i className="fa fa-search"></i>
+						<input type="button" className="button-find" onClick={btnSubmit} value="Buscar cotizaciones" />
 					</div>					
 				</form>				
 				<Table arrayRates={rates} />

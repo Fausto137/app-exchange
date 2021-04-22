@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+// import CurrencyFlag from 'react-currency-flags';
 
 const Table = (prop) => {
     const [counter, setCounter] = useState(4);
     
+    //muestro las primeras 4
     useEffect(() => {
         for(let i=4; i < prop.arrayRates.length; i++){
-            console.log('ACA');
             let element = document.getElementById(i);
             if(element != null){
                 element.style.display = 'none';
@@ -29,17 +30,17 @@ const Table = (prop) => {
             <table className="table table-styles">
                 <tbody>
                     {
-                        prop.arrayRates.map((e, i) =>
+                        prop.arrayRates.map((element, i) =>
                             <tr key={i} id={i}>
-                                <th scope="row"><img src={e.flag} alt=""/></th>
-                                <td>{e.country}</td>
-                                <td>{e.value}</td>
+                                <th><img src={element.flag} alt=""/></th>
+                                <td>{element.currency}</td>
+                                <td>{element.value}</td>
                             </tr>
                         )
                     }
                 </tbody>
             </table>
-            <button className="button-style" onClick={addRows} >Ver más cotizaciones</button>
+            <button className="button-more" onClick={addRows} >Ver más cotizaciones</button>
         </div>
     )
 }

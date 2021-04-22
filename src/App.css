@@ -1,38 +1,3 @@
-/*
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
 @import "~react-datepicker/dist/react-datepicker.css";
 
 img {
@@ -63,23 +28,36 @@ img {
   box-shadow: 2px 2px 4px gray;
   border-radius: 4px;
   width: 380px;
-  padding: 2% 0% 2% 0%;
+  padding: 10px 0% 10px 0%;
   font-size: 18px;
-  color: rgba(123,123,123,255);
+  color: #8f8f8f;
 }
 
-.button-style {
+.button-find {
   border-style: hidden;
   margin-top: 5%;
-  background-color: rgba(254,113,64,255);
+  background-color: #fe7140;
   border-radius: 35px;
   font-size: 140%;
   padding-top: 1%;
   padding-bottom: 1%;
-  padding-right: 7%;
-  padding-left: 7%;
-  box-shadow: 0 0 3px;
+  box-shadow: 6px 12px 21px #ffd8d2;
   color: white;
+  width: 380px;
+}
+
+.button-more {
+  margin-top: 5%;
+  background-color: white;
+  border-radius: 35px;
+  font-size: 140%;
+  border-color: #fe7140;
+  border-width: thin;
+  border-style: solid;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  box-shadow: 6px 12px 21px #ffd8d2;
+  color: #fe7140;
   width: 380px;
 }
 

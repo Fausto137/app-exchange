@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-// import CurrencyFlag from 'react-currency-flags';
 
 const Table = (prop) => {
     const [counter, setCounter] = useState(4);
@@ -24,6 +23,8 @@ const Table = (prop) => {
         }
         setCounter(counter + 4);
     }
+
+
 
     return (
         <div className="row">

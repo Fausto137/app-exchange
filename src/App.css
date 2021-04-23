@@ -4,6 +4,27 @@ img {
   max-width: 35px;
 }
 
+#input_container {
+  position:relative;
+}
+#input {
+  margin:0;
+}
+#input_img {
+  position:absolute;
+  left: 340px;
+}
+
+.input-styles {
+  border-style: hidden;
+  box-shadow: 2px 2px 4px gray;
+  border-radius: 4px;
+  width: 380px;
+  padding: 10px 0% 10px 0%;
+  font-size: 18px;
+  color: #8f8f8f;
+}
+
 .table-styles {
   margin-top: 4%;
   width: 380px;
@@ -21,16 +42,6 @@ img {
   padding-top: 3%;
   padding-bottom: 1%;
   font-size: 20px;
-}
-
-.input-styles {
-  border-style: hidden;
-  box-shadow: 2px 2px 4px gray;
-  border-radius: 4px;
-  width: 380px;
-  padding: 10px 0% 10px 0%;
-  font-size: 18px;
-  color: #8f8f8f;
 }
 
 .button-find {
